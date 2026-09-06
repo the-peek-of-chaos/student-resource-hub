@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       Strict Content Security Policy (CSP)
+       Adjust domains as needed when adding third-party scripts.
+       ============================================================ -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com;
+                 style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com;
+                 img-src 'self' data: https:;
+                 font-src 'self' https://fonts.gstatic.com;
+                 connect-src 'self' https://www.google-analytics.com;
+                 object-src 'none';
+                 base-uri 'self';
+                 form-action 'self';" />
+
+  <meta name="description" content="StudentHub — free cheat sheets, mini-tools and study resources for students." />
+  <meta name="author" content="StudentHub Team" />
+  <meta name="theme-color" content="#4f46e5" />
+
+  <title data-i18n="brand">StudentHub</title>
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:title" content="StudentHub — Student Resource Hub" />
+  <meta property="og:description" content="Free cheat sheets, interactive tools and study resources for students." />
+  <meta property="og:type" content="website" />
+
+  <!-- ============================================================
+       Google Analytics (gtag.js) — PLACEHOLDER
+       Replace GA_MEASUREMENT_ID with your real measurement ID.
+       ============================================================ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen" data-page="home">
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+    <!-- ADSTERRA_BANNER_SLOT -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Brand -->
+        <a href="index.html" class="flex items-center gap-2" aria-label="StudentHub home">
+          <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">S</span>
+          <span class="text-xl font-bold text-slate-900" data-i18n="brand">StudentHub</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" data-page="home" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_home">Home</a>
+          <a href="cheat-sheets.html" data-page="cheatsheets" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
+          <a href="tools.html" data-page="tools" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_tools">Tools</a>
+          <a href="contact.html" data-page="contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_contact">Contact</a>
+
+          <!-- Language Toggle -->
+          <button
+            data-lang-toggle
+            data-i18n="lang_toggle"
+            class="px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-semibold hover:bg-indigo-100 transition border border-indigo-200"
+            aria-label="Switch language"
+            title="Toggle English / العربية">
+            العربية
+          </button>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <div class="md:hidden flex items-center gap-3">
+          <button
+            data-lang-toggle
+            data-i18n="lang_toggle"
+            class="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-semibold border border-indigo-200"
+            aria-label="Switch language">
+            العربية
+          </button>
+          <button
+            data-nav-toggle
+            class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition"
+            aria-label="Open menu"
+            aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu (hidden by default) -->
+      <div data-nav-menu class="hidden md:hidden pb-4 space-y-1">
+        <a href="index.html" data-page="home" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_home">Home</a>
+        <a href="cheat-sheets.html" data-page="cheatsheets" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
+        <a href="tools.html" data-page="tools" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_tools">Tools</a>
+        <a href="contact.html" data-page="contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative overflow-hidden">
+      <!-- Decorative background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-emerald-50"></div>
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+            <span data-i18n="hero_badge">Free Resources for Students</span>
+          </span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6" data-i18n="hero_title">
+            Your Ultimate Student Resource Hub
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-600 mb-8" data-i18n="hero_subtitle">
+            Access comprehensive cheat sheets, powerful mini-tools, and study resources — all in one place.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="cheat-sheets.html" class="px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition text-center shadow-md shadow-indigo-200" data-i18n="hero_cta">
+              Browse Cheat Sheets
+            </a>
+            <a href="tools.html" class="px-6 py-3 rounded-lg bg-white text-slate-800 font-semibold border border-slate-300 hover:bg-slate-50 transition text-center" data-i18n="hero_cta_secondary">
+              Explore Tools
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADSENSE_TOP_SLOT -->
+    <!-- ============================================================
+         STATS
+         ============================================================ -->
+    <section class="bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-indigo-600">10K+</p>
+            <p class="text-sm text-slate-500 mt-1" data-i18n="stat_students">Students Helped</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-indigo-600">6</p>
+            <p class="text-sm text-slate-500 mt-1" data-i18n="stat_tools">Mini Tools</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-indigo-600">12+</p>
+            <p class="text-sm text-slate-500 mt-1" data-i18n="stat_sheets">Cheat Sheets</p>
+          </div>
+          <div>
+            <p class="text-3xl sm:text-4xl font-extrabold text-indigo-600">2</p>
+            <p class="text-sm text-slate-500 mt-1" data-i18n="stat_languages">Languages</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FEATURED RESOURCES
+         ============================================================ -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3" data-i18n="featured_title">Featured Resources</h2>
+        <p class="text-slate-500 max-w-2xl mx-auto" data-i18n="featured_subtitle">Hand-picked tools and references to boost your productivity.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <a href="cheat-sheets.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2" data-i18n="feat_cheats_title">Programming Cheat Sheets</h3>
+          <p class="text-sm text-slate-500 mb-4" data-i18n="feat_cheats_desc">Quick references for HTML, CSS, JavaScript, Python, Git and more.</p>
+          <span class="text-sm font-semibold text-indigo-600" data-i18n="learn_more">Learn More →</span>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="tools.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2" data-i18n="feat_tools_title">Mini Tools</h3>
+          <p class="text-sm text-slate-500 mb-4" data-i18n="feat_tools_desc">Text counters, case converters, password generators and beyond.</p>
+          <span class="text-sm font-semibold text-indigo-600" data-i18n="learn_more">Learn More →</span>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="cheat-sheets.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2" data-i18n="feat_resources_title">Study Resources</h3>
+          <p class="text-sm text-slate-500 mb-4" data-i18n="feat_resources_desc">Curated links and guides to accelerate your learning journey.</p>
+          <span class="text-sm font-semibold text-indigo-600" data-i18n="learn_more">Learn More →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SIDEBAR_AD_SLOT -->
+    <!-- ============================================================
+         CTA BANNER
+         ============================================================ -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="bg-indigo-600 rounded-2xl px-6 py-12 sm:px-12 text-center relative overflow-hidden">
+        <div class="absolute -top-16 -left-16 w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-16 -right-16 w-64 h-64 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="relative">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3" data-i18n="cta_title">Ready to start studying smarter?</h2>
+          <p class="text-indigo-100 mb-8 max-w-xl mx-auto" data-i18n="cta_text">Join thousands of students using StudentHub to learn faster every day.</p>
+          <a href="cheat-sheets.html" class="inline-block px-8 py-3 rounded-lg bg-white text-indigo-700 font-semibold hover:bg-indigo-50 transition shadow-lg" data-i18n="cta_button">Get Started</a>
+        </div>
+      </div>
+    </section>
+    <!-- ADSTERRA_BANNER_SLOT -->
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="bg-slate-900 text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Brand -->
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-indigo-500 text-white flex items-center justify-center font-bold text-lg">S</span>
+            <span class="text-lg font-bold text-white" data-i18n="brand">StudentHub</span>
+          </a>
+          <p class="text-sm text-slate-400" data-i18n="footer_about">A hub of free resources and mini-tools for students everywhere.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_quick_links">Quick Links</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-white transition" data-i18n="nav_home">Home</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-white transition" data-i18n="nav_cheatsheets">Cheat Sheets</a></li>
+            <li><a href="tools.html" class="hover:text-white transition" data-i18n="nav_tools">Tools</a></li>
+            <li><a href="contact.html" class="hover:text-white transition" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_resources">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="cheat-sheets.html#html" class="hover:text-white transition" data-i18n="cs_category_html">HTML</a></li>
+            <li><a href="cheat-sheets.html#javascript" class="hover:text-white transition" data-i18n="cs_category_javascript">JavaScript</a></li>
+            <li><a href="cheat-sheets.html#python" class="hover:text-white transition" data-i18n="cs_category_python">Python</a></li>
+            <li><a href="cheat-sheets.html#git" class="hover:text-white transition" data-i18n="cs_category_git">Git</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+          <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_newsletter">Newsletter</h3>
+          <p class="text-sm text-slate-400 mb-4" data-i18n="footer_newsletter_text">Get the latest study tips and resource updates.</p>
+          <form data-newsletter class="flex gap-2">
+            <input type="email" data-i18n-placeholder="footer_newsletter_placeholder" placeholder="Enter your email"
+              class="flex-1 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Email address" />
+            <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition" data-i18n="footer_subscribe">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        <p>© 2026 <span data-i18n="brand">StudentHub</span>. <span data-i18n="footer_rights">All rights reserved.</span></p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition" data-i18n="footer_terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       Scripts
+       Load order matters: sanitize → language → main
+       ============================================================ -->
+  <script src="assets/js/sanitize.js"></script>
+  <script src="assets/js/language.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

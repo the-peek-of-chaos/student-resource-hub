@@ -1,0 +1,129 @@
+/* ============================================================
+   styles.css
+   Custom styles that complement Tailwind CSS.
+   Includes toast animations, RTL tweaks, and small enhancements.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Base
+   ------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL support: flip generic direction-agnostic styles */
+[dir="rtl"] body {
+  font-family: "Inter", "Cairo", "Noto Sans Arabic", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ------------------------------------------------------------
+   2. Toast Animations
+   ------------------------------------------------------------ */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+.toast-enter {
+  animation: toast-in 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: toast-out 0.3s ease-in forwards;
+}
+
+/* ------------------------------------------------------------
+   3. Scrollbar (WebKit)
+   ------------------------------------------------------------ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ------------------------------------------------------------
+   4. Code blocks inside cheat sheets
+   ------------------------------------------------------------ */
+.cheat-code {
+  direction: ltr;
+  text-align: left;
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  tab-size: 2;
+}
+
+/* ------------------------------------------------------------
+   5. RTL text alignment fixes
+   ------------------------------------------------------------ */
+[dir="rtl"] .text-start {
+  text-align: right;
+}
+
+[dir="rtl"] .text-end {
+  text-align: left;
+}
+
+/* ------------------------------------------------------------
+   6. Fade-in on scroll helper (optional, non-intrusive)
+   ------------------------------------------------------------ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent cumulative layout shift from the animations */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
