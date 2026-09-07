@@ -1,11 +1,12 @@
 /* ============================================================
    styles.css
-   Custom styles that complement Tailwind CSS.
-   Includes toast animations, RTL tweaks, and small enhancements.
+   Dark-themed StudentHub — glassmorphism, bento grid,
+   micro-interactions, fade-in animations, and responsive
+   utilities that complement Tailwind CSS.
    ============================================================ */
 
 /* ------------------------------------------------------------
-   1. Base
+   1. Base / Dark Theme Foundation
    ------------------------------------------------------------ */
 html {
   scroll-behavior: smooth;
@@ -19,14 +20,136 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* RTL support: flip generic direction-agnostic styles */
 [dir="rtl"] body {
   font-family: "Inter", "Cairo", "Noto Sans Arabic", -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* ------------------------------------------------------------
-   2. Toast Animations
+   2. Glassmorphism Card
+   ------------------------------------------------------------ */
+.glass-card {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: scale(1.01);
+  box-shadow:
+    0 0 20px rgba(59, 130, 246, 0.08),
+    0 0 40px rgba(59, 130, 246, 0.04);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Variant: emerald glow */
+.glass-card-emerald:hover {
+  box-shadow:
+    0 0 20px rgba(16, 185, 129, 0.08),
+    0 0 40px rgba(16, 185, 129, 0.04);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Variant: amber glow */
+.glass-card-amber:hover {
+  box-shadow:
+    0 0 20px rgba(245, 158, 11, 0.08),
+    0 0 40px rgba(245, 158, 11, 0.04);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* Variant: no scale on hover (for inner widgets) */
+.glass-card-static {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 1rem;
+}
+
+/* ------------------------------------------------------------
+   3. Bento Grid Layout
+   ------------------------------------------------------------ */
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Span classes for bento items */
+.bento-span-2 {
+  grid-column: span 1;
+}
+@media (min-width: 640px) {
+  .bento-span-2 {
+    grid-column: span 2;
+  }
+}
+
+.bento-span-3 {
+  grid-column: span 1;
+}
+@media (min-width: 640px) {
+  .bento-span-3 {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  .bento-span-3 {
+    grid-column: span 3;
+  }
+}
+
+/* ------------------------------------------------------------
+   4. Fade-in / Scroll Animations
+   ------------------------------------------------------------ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.fade-in-delay-1 { animation-delay: 0.1s; }
+.fade-in-delay-2 { animation-delay: 0.2s; }
+.fade-in-delay-3 { animation-delay: 0.3s; }
+.fade-in-delay-4 { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Intersection Observer driven reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   5. Toast Animations
    ------------------------------------------------------------ */
 @keyframes toast-in {
   from {
@@ -59,7 +182,7 @@ body {
 }
 
 /* ------------------------------------------------------------
-   3. Scrollbar (WebKit)
+   6. Scrollbar (dark theme)
    ------------------------------------------------------------ */
 ::-webkit-scrollbar {
   width: 8px;
@@ -67,20 +190,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(15, 23, 42, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(100, 116, 139, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(148, 163, 184, 0.6);
 }
 
 /* ------------------------------------------------------------
-   4. Code blocks inside cheat sheets
+   7. Code Blocks (cheat sheets)
    ------------------------------------------------------------ */
 .cheat-code {
   direction: ltr;
@@ -89,8 +212,51 @@ body {
   tab-size: 2;
 }
 
+/* Syntax-highlighted code lines */
+.code-line-keyword { color: #c084fc; }      /* purple — keywords */
+.code-line-string  { color: #34d399; }      /* emerald — strings */
+.code-line-comment { color: #64748b; font-style: italic; } /* slate — comments */
+.code-line-number  { color: #f59e0b; }      /* amber — numbers */
+.code-line-tag     { color: #f472b6; }      /* pink — HTML tags */
+.code-line-attr    { color: #60a5fa; }      /* blue — attributes */
+.code-line-func    { color: #38bdf8; }      /* sky — functions */
+
+/* Copy button feedback */
+.copy-btn-copied {
+  background-color: rgb(22 163 74) !important;
+  color: white !important;
+}
+
 /* ------------------------------------------------------------
-   5. RTL text alignment fixes
+   8. Pomodoro Timer
+   ------------------------------------------------------------ */
+.pomo-ring {
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* ------------------------------------------------------------
+   9. Search Highlight
+   ------------------------------------------------------------ */
+.search-highlight {
+  background: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* ------------------------------------------------------------
+   10. Ambient Glow Effects
+   ------------------------------------------------------------ */
+.ambient-glow-blue {
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.06);
+}
+
+.ambient-glow-emerald {
+  box-shadow: 0 0 60px rgba(16, 185, 129, 0.06);
+}
+
+/* ------------------------------------------------------------
+   11. RTL Fixes
    ------------------------------------------------------------ */
 [dir="rtl"] .text-start {
   text-align: right;
@@ -101,29 +267,100 @@ body {
 }
 
 /* ------------------------------------------------------------
-   6. Fade-in on scroll helper (optional, non-intrusive)
+   12. Reduced Motion
    ------------------------------------------------------------ */
-.fade-in {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Prevent cumulative layout shift from the animations */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .fade-in {
+  .fade-in,
+  .reveal {
     animation: none;
     opacity: 1;
     transform: none;
+    transition: none;
   }
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   13. Accent Color System
+   CSS custom properties driven from config.js (ACCENT_THEMES).
+   Sets the global glow color used across hints, focus rings,
+   buttons and highlights.
+   ------------------------------------------------------------ */
+:root {
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.15);
+  --accent-glow: rgba(59, 130, 246, 0.12);
+  --accent-text: #93c5fd;
+  --accent-theme: blue;
+}
+
+/* Apply accent to interactive elements via utility classes */
+.text-accent { color: var(--accent-text); }
+.bg-accent { background-color: var(--accent); }
+.border-accent { border-color: var(--accent); }
+.bg-accent\/20 { background-color: var(--accent-soft); }
+.border-accent\/60 { border-color: var(--accent); }
+.bg-accent\/15 { background-color: var(--accent-soft); }
+
+/* Global glow for cards on hover (uses dynamic accent) */
+.glass-card:hover {
+  box-shadow:
+    0 0 20px var(--accent-glow),
+    0 0 40px var(--accent-glow);
+  border-color: var(--accent-soft);
+}
+
+/* Focus rings use dynamic accent */
+:focus {
+  outline-color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   14. Ad Slot styling
+   ------------------------------------------------------------ */
+[data-ad-slot] .ad-injected iframe {
+  border-radius: 8px;
+  max-width: 100%;
+}
+[data-ad-slot] .ad-injected img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* ------------------------------------------------------------
+   15. Feedback reaction buttons
+   ------------------------------------------------------------ */
+[data-reaction] {
+  transition: all 0.2s ease;
+}
+[data-reaction]:hover {
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------
+   16. Code Playground
+   ------------------------------------------------------------ */
+[data-playground] textarea {
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+  tab-size: 2;
+}
+[data-playground] iframe {
+  background: #ffffff;
+}
+
+/* ------------------------------------------------------------
+   17. Control Dock
+   ------------------------------------------------------------ */
+[data-control-dock] {
+  z-index: 70;
+}
+
+/* Custom scrollbar for dock panel */
+[data-control-panel]::-webkit-scrollbar {
+  width: 6px;
 }

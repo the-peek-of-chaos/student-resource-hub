@@ -9,7 +9,7 @@
        ============================================================ -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com;
+                 script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com https://www.highrevenueformat.com;
                  style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com;
                  img-src 'self' data: https:;
                  font-src 'self' https://fonts.gstatic.com;
@@ -19,13 +19,16 @@
                  form-action 'self';" />
 
   <meta name="description" content="Contact StudentHub — send us your questions, feedback and suggestions." />
-  <meta name="theme-color" content="#4f46e5" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" href="assets/images/icon-192.png" sizes="192x192" />
 
   <title data-i18n="brand">StudentHub</title>
 
-  <!-- ============================================================
-       Google Analytics (gtag.js) — PLACEHOLDER
-       ============================================================ -->
+  <!-- Google Analytics (gtag.js) — PLACEHOLDER -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6E6MXLC8J4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -46,35 +49,48 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
-<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen" data-page="contact">
+<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen" data-page="contact">
 
   <!-- ============================================================
        NAVBAR
        ============================================================ -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
-    <!-- ADSTERRA_BANNER_SLOT -->
+  <header data-navbar class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/60">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
       <div class="flex h-16 items-center justify-between">
         <a href="index.html" class="flex items-center gap-2" aria-label="StudentHub home">
-          <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">S</span>
-          <span class="text-xl font-bold text-slate-900" data-i18n="brand">StudentHub</span>
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-blue-500/20">S</span>
+          <span class="text-xl font-bold text-white" data-i18n="brand">StudentHub</span>
         </a>
 
-        <div class="hidden md:flex items-center gap-6">
-          <a href="index.html" data-page="home" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_home">Home</a>
-          <a href="cheat-sheets.html" data-page="cheatsheets" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
-          <a href="tools.html" data-page="tools" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_tools">Tools</a>
-          <a href="contact.html" data-page="contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition" data-i18n="nav_contact">Contact</a>
+        <div class="hidden lg:block flex-1 max-w-md mx-6">
+          <div class="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="search"
+              data-global-search
+              data-i18n-placeholder="search_placeholder"
+              placeholder="Instant search..."
+              class="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+              aria-label="Instant search" />
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" data-page="home" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-slate-800/60 transition" data-i18n="nav_home">Home</a>
+          <a href="cheat-sheets.html" data-page="cheatsheets" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-slate-800/60 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
+          <a href="tools.html" data-page="tools" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-slate-800/60 transition" data-i18n="nav_tools">Tools</a>
+          <a href="contact.html" data-page="contact" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-blue-400 hover:bg-slate-800/60 transition" data-i18n="nav_contact">Contact</a>
           <button data-lang-toggle data-i18n="lang_toggle"
-            class="px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-semibold hover:bg-indigo-100 transition border border-indigo-200"
+            class="ml-2 px-3 py-1.5 rounded-lg bg-slate-800/80 text-blue-300 text-sm font-semibold hover:bg-slate-700 transition border border-slate-700"
             aria-label="Switch language" title="Toggle English / العربية">العربية</button>
         </div>
 
         <div class="md:hidden flex items-center gap-3">
           <button data-lang-toggle data-i18n="lang_toggle"
-            class="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 text-sm font-semibold border border-indigo-200"
+            class="px-3 py-1.5 rounded-lg bg-slate-800/80 text-blue-300 text-sm font-semibold border border-slate-700"
             aria-label="Switch language">العربية</button>
-          <button data-nav-toggle class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition" aria-label="Open menu" aria-expanded="false">
+          <button data-nav-toggle class="p-2 rounded-lg text-slate-300 hover:bg-slate-800/60 transition" aria-label="Open menu" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -82,11 +98,25 @@
         </div>
       </div>
 
+      <div class="md:hidden pb-3">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input type="search"
+            data-global-search
+            data-i18n-placeholder="search_placeholder"
+            placeholder="Instant search..."
+            class="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+            aria-label="Instant search" />
+        </div>
+      </div>
+
       <div data-nav-menu class="hidden md:hidden pb-4 space-y-1">
-        <a href="index.html" data-page="home" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_home">Home</a>
-        <a href="cheat-sheets.html" data-page="cheatsheets" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
-        <a href="tools.html" data-page="tools" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_tools">Tools</a>
-        <a href="contact.html" data-page="contact" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition" data-i18n="nav_contact">Contact</a>
+        <a href="index.html" data-page="home" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-blue-400 transition" data-i18n="nav_home">Home</a>
+        <a href="cheat-sheets.html" data-page="cheatsheets" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-blue-400 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a>
+        <a href="tools.html" data-page="tools" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-blue-400 transition" data-i18n="nav_tools">Tools</a>
+        <a href="contact.html" data-page="contact" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-blue-400 transition" data-i18n="nav_contact">Contact</a>
       </div>
     </nav>
   </header>
@@ -96,27 +126,26 @@
     <!-- ============================================================
          PAGE HEADER
          ============================================================ -->
-    <section class="bg-gradient-to-br from-amber-500 to-orange-600">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-white">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-2" data-i18n="contact_title">Contact Us</h1>
-        <p class="text-amber-100 max-w-2xl" data-i18n="contact_subtitle">Have a question or feedback? We'd love to hear from you.</p>
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/20"></div>
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mb-2 fade-in" data-i18n="contact_title">Contact Us</h1>
+        <p class="text-slate-400 max-w-2xl fade-in fade-in-delay-1" data-i18n="contact_subtitle">Have a question or feedback? We'd love to hear from you.</p>
       </div>
     </section>
 
-    <!-- ADSENSE_TOP_SLOT -->
     <!-- ============================================================
          CONTACT FORM
          ============================================================ -->
     <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+      <div class="glass-card p-6 sm:p-8">
 
-        <!-- Success / error banner (hidden by default) -->
         <div data-contact-alert class="hidden mb-6 px-4 py-3 rounded-lg text-sm font-medium" role="status" aria-live="polite"></div>
 
         <form data-contact-form novalidate>
-          <!-- Name -->
           <div class="mb-5">
-            <label for="contact-name" class="block text-sm font-medium text-slate-700 mb-1.5" data-i18n="contact_name">Full Name</label>
+            <label for="contact-name" class="block text-sm font-medium text-slate-300 mb-1.5" data-i18n="contact_name">Full Name</label>
             <input type="text"
               id="contact-name"
               name="name"
@@ -124,14 +153,13 @@
               maxlength="80"
               data-i18n-placeholder="nametext"
               placeholder="Enter your full name"
-              class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               autocomplete="name" />
-            <p data-feedback="name" class="hidden text-red-600 text-xs mt-1" role="alert"></p>
+            <p data-feedback="name" class="hidden text-red-400 text-xs mt-1" role="alert"></p>
           </div>
 
-          <!-- Email -->
           <div class="mb-5">
-            <label for="contact-email" class="block text-sm font-medium text-slate-700 mb-1.5" data-i18n="contact_email">Email Address</label>
+            <label for="contact-email" class="block text-sm font-medium text-slate-300 mb-1.5" data-i18n="contact_email">Email Address</label>
             <input type="email"
               id="contact-email"
               name="email"
@@ -139,14 +167,13 @@
               maxlength="120"
               data-i18n-placeholder="emailtext"
               placeholder="you@example.com"
-              class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               autocomplete="email" />
-            <p data-feedback="email" class="hidden text-red-600 text-xs mt-1" role="alert"></p>
+            <p data-feedback="email" class="hidden text-red-400 text-xs mt-1" role="alert"></p>
           </div>
 
-          <!-- Subject -->
           <div class="mb-5">
-            <label for="contact-subject" class="block text-sm font-medium text-slate-700 mb-1.5" data-i18n="contact_subject">Subject</label>
+            <label for="contact-subject" class="block text-sm font-medium text-slate-300 mb-1.5" data-i18n="contact_subject">Subject</label>
             <input type="text"
               id="contact-subject"
               name="subject"
@@ -154,13 +181,12 @@
               maxlength="120"
               data-i18n-placeholder="subjecttext"
               placeholder="What is this about?"
-              class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition" />
-            <p data-feedback="subject" class="hidden text-red-600 text-xs mt-1" role="alert"></p>
+              class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
+            <p data-feedback="subject" class="hidden text-red-400 text-xs mt-1" role="alert"></p>
           </div>
 
-          <!-- Message -->
           <div class="mb-6">
-            <label for="contact-message" class="block text-sm font-medium text-slate-700 mb-1.5" data-i18n="contact_message">Your Message</label>
+            <label for="contact-message" class="block text-sm font-medium text-slate-300 mb-1.5" data-i18n="contact_message">Your Message</label>
             <textarea
               id="contact-message"
               name="message"
@@ -169,8 +195,8 @@
               maxlength="2000"
               data-i18n-placeholder="messagetext"
               placeholder="Write your message here..."
-              class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition resize-y"></textarea>
-            <p data-feedback="message" class="hidden text-red-600 text-xs mt-1" role="alert"></p>
+              class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900/70 border border-slate-700/60 text-sm text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition resize-y"></textarea>
+            <p data-feedback="message" class="hidden text-red-400 text-xs mt-1" role="alert"></p>
           </div>
 
           <!-- Honeypot (anti-spam, hidden from humans) -->
@@ -179,57 +205,60 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <!-- Submit -->
           <button type="submit"
-            class="w-full px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition shadow-md shadow-indigo-200 flex items-center justify-center gap-2"
+            class="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2"
             data-i18n="contact_send">
             Send Message
           </button>
         </form>
-
-        <!-- SIDEBAR_AD_SLOT -->
       </div>
+    </section>
+
+    <!-- Ad slots -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+      <div data-ad-slot="mid"></div>
+      <div data-ad-slot="bottom"></div>
     </section>
   </main>
 
   <!-- ============================================================
        FOOTER
        ============================================================ -->
-  <footer class="bg-slate-900 text-slate-300">
+  <footer class="bg-slate-950 border-t border-slate-800/60 text-slate-400">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <a href="index.html" class="flex items-center gap-2 mb-4">
-            <span class="w-9 h-9 rounded-xl bg-indigo-500 text-white flex items-center justify-center font-bold text-lg">S</span>
+            <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 text-white flex items-center justify-center font-bold text-lg">S</span>
             <span class="text-lg font-bold text-white" data-i18n="brand">StudentHub</span>
           </a>
-          <p class="text-sm text-slate-400" data-i18n="footer_about">A hub of free resources and mini-tools for students everywhere.</p>
+          <p class="text-sm" data-i18n="footer_about">A modern platform of free resources, coding tracks and mini-tools for students everywhere.</p>
         </div>
         <div>
           <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_quick_links">Quick Links</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="index.html" class="hover:text-white transition" data-i18n="nav_home">Home</a></li>
-            <li><a href="cheat-sheets.html" class="hover:text-white transition" data-i18n="nav_cheatsheets">Cheat Sheets</a></li>
-            <li><a href="tools.html" class="hover:text-white transition" data-i18n="nav_tools">Tools</a></li>
-            <li><a href="contact.html" class="hover:text-white transition" data-i18n="nav_contact">Contact</a></li>
+            <li><a href="index.html" class="hover:text-blue-400 transition" data-i18n="nav_home">Home</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-blue-400 transition" data-i18n="nav_cheatsheets">Cheat Sheets</a></li>
+            <li><a href="tools.html" class="hover:text-blue-400 transition" data-i18n="nav_tools">Tools</a></li>
+            <li><a href="contact.html" class="hover:text-blue-400 transition" data-i18n="nav_contact">Contact</a></li>
           </ul>
         </div>
         <div>
           <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_resources">Resources</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="cheat-sheets.html#html" class="hover:text-white transition" data-i18n="cs_category_html">HTML</a></li>
-            <li><a href="cheat-sheets.html#javascript" class="hover:text-white transition" data-i18n="cs_category_javascript">JavaScript</a></li>
-            <li><a href="cheat-sheets.html#python" class="hover:text-white transition" data-i18n="cs_category_python">Python</a></li>
-            <li><a href="cheat-sheets.html#git" class="hover:text-white transition" data-i18n="cs_category_git">Git</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-blue-400 transition" data-i18n="cs_category_html">HTML</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-blue-400 transition" data-i18n="cs_category_javascript">JavaScript</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-blue-400 transition" data-i18n="cs_category_python">Python</a></li>
+            <li><a href="cheat-sheets.html" class="hover:text-blue-400 transition" data-i18n="cs_category_git">Git</a></li>
           </ul>
         </div>
         <div>
           <h3 class="text-sm font-semibold text-white mb-4" data-i18n="footer_newsletter">Newsletter</h3>
-          <p class="text-sm text-slate-400 mb-4" data-i18n="footer_newsletter_text">Get the latest study tips and resource updates.</p>
+          <p class="text-sm mb-4" data-i18n="footer_newsletter_text">Get the latest study tips and resource updates.</p>
           <form data-newsletter class="flex gap-2">
             <input type="email" data-i18n-placeholder="footer_newsletter_placeholder" placeholder="Enter your email"
-              class="flex-1 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Email address" />
-            <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition" data-i18n="footer_subscribe">Subscribe</button>
+              class="flex-1 px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Email address" />
+            <button type="submit" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold hover:from-blue-600 hover:to-blue-700 transition" data-i18n="footer_subscribe">Subscribe</button>
           </form>
         </div>
       </div>
@@ -241,19 +270,6 @@
         </div>
       </div>
     </div>
-    <div class="my-6 flex justify-center">
-    <script>
-  atOptions = {
-    'key' : 'b645f8ed0a1c14ccd1c01da0386f072e',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highrevenueformat.com/b645f8ed0a1c14ccd1c01da0386f072e/invoke.js"></script>
-
-</div>
   </footer>
 
   <!-- ============================================================
@@ -261,7 +277,10 @@
        ============================================================ -->
   <script src="assets/js/sanitize.js"></script>
   <script src="assets/js/language.js"></script>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/interactions.js"></script>
+  <script src="assets/js/ads.js"></script>
   <script src="assets/js/contact.js"></script>
 </body>
 </html>

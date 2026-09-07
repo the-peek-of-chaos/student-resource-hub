@@ -28,6 +28,9 @@
     initActiveLink();
     initNewsletter();
     initValueListeners();
+    initScrollReveal();
+    initGlobalSearch();
+    initNavbarScroll();
   });
 
   /* ----------------------------------------------------------
@@ -95,9 +98,103 @@
 
     document.querySelectorAll('a[data-page]').forEach(function (link) {
       if (link.getAttribute("data-page") === currentPage) {
-        link.classList.add("text-indigo-600", "font-semibold");
+        link.classList.add("text-blue-500", "font-semibold");
       }
     });
+  }
+
+  /* ----------------------------------------------------------
+     Navbar scroll effect — add shadow/background on scroll
+     ---------------------------------------------------------- */
+  function initNavbarScroll() {
+    const header = document.querySelector("[data-navbar]");
+    if (!header) return;
+
+    const onScroll = function () {
+      if (window.scrollY > 10) {
+        header.classList.add("shadow-lg", "shadow-black/30", "border-slate-800");
+      } else {
+        header.classList.remove("shadow-lg", "shadow-black/30", "border-slate-800");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ----------------------------------------------------------
+     Scroll Reveal — reveal[data-reveal] elements fade in
+     ---------------------------------------------------------- */
+  function initScrollReveal() {
+    const items = document.querySelectorAll("[data-reveal]");
+    if (!items.length) return;
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("visible"); });
+      return;
+    }
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ----------------------------------------------------------
+     Instant Fuzzy Global Search
+     Searches across lesson descriptions, tools, and cheat
+     sheets and highlights matching cards without reload.
+     ---------------------------------------------------------- */
+  function initGlobalSearch() {
+    const input = document.querySelector("[data-global-search]");
+    if (!input) return;
+
+    // Collect all searchable cards. Each promotable card should
+    // carry data-search-tags attributes with space-separated terms.
+    const resultsEl = document.querySelector("[data-global-results]");
+
+    const performSearch = function () {
+      const term = (sanitizeInput(input.value) || "").trim().toLowerCase();
+      let count = 0;
+
+      document.querySelectorAll("[data-search-card]").forEach(function (card) {
+        const tags = (card.getAttribute("data-search-tags") || "").toLowerCase();
+        const title = (card.getAttribute("data-search-title") || "").toLowerCase();
+        const match = !term || tags.indexOf(term) !== -1 || title.indexOf(term) !== -1;
+        // Also fuzzy-match: all chars of term present in order in tags
+        let fuzzy = true;
+        if (term) {
+          fuzzy = fuzzyMatch(title + " " + tags, term);
+        }
+        const show = !term || match || fuzzy;
+        card.classList.toggle("hidden", !show);
+        if (show) count++;
+      });
+
+      if (resultsEl) {
+        const word = Lang.get() === "ar" ? "نتيجة" : (count === 1 ? "result" : "results");
+        resultsEl.textContent = count + " " + word;
+      }
+    };
+
+    input.addEventListener("input", performSearch);
+    performSearch();
+  }
+
+  /* ----------------------------------------------------------
+     Simple fuzzy matcher — all chars of needle appear in order
+     @param {string} hay
+     @param {string} needle
+     @returns {boolean}
+     ---------------------------------------------------------- */
+  function fuzzyMatch(hay, needle) {
+    let i = 0;
+    for (let j = 0; j < hay.length && i < needle.length; j++) {
+      if (hay.charAt(j) === needle.charAt(i)) i++;
+    }
+    return i === needle.length;
   }
 
   /* ----------------------------------------------------------
@@ -151,11 +248,11 @@
      ---------------------------------------------------------- */
   function flashButton(btn) {
     const original = btn.textContent;
-    btn.classList.add("bg-green-600");
+    btn.classList.add("bg-emerald-600");
     btn.textContent = "✓ " + (Lang.get() === "ar" ? "تم" : "Copied!");
     setTimeout(function () {
       btn.textContent = original;
-      btn.classList.remove("bg-green-600");
+      btn.classList.remove("bg-emerald-600");
     }, 1500);
   }
 
@@ -180,14 +277,14 @@
     const toast = document.createElement("div");
     toast.setAttribute("role", "status");
     toast.className =
-      "toast-enter flex items-center justify-between gap-3 px-4 py-3 rounded-lg shadow-lg text-sm font-medium ";
+      "toast-enter flex items-center justify-between gap-3 px-4 py-3 rounded-lg shadow-lg text-sm font-medium border ";
 
     if (type === "error") {
-      toast.classList.add("bg-red-600", "text-white");
+      toast.classList.add("bg-red-900/90", "border-red-500/30", "text-red-100");
     } else if (type === "info") {
-      toast.classList.add("bg-slate-800", "text-white");
+      toast.classList.add("bg-slate-800/95", "border-slate-700", "text-slate-100");
     } else {
-      toast.classList.add("bg-indigo-600", "text-white");
+      toast.classList.add("bg-emerald-600/95", "border-emerald-400/40", "text-white");
     }
 
     const span = document.createElement("span");
